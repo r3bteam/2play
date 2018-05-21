@@ -64,7 +64,7 @@ client.on('message', async msg => { // eslint-disable-line
 
 	command = command.slice(PREFIX.length)
 
-	if (command === `play`) {
+	if (command === `p`) {
     
 		const voiceChannel = msg.member.voiceChannel;
         
@@ -170,7 +170,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 
 		}
     
-	} else if (command === `skip`) {
+	} else if (command === `s`) {
 
 		if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel!');
 
@@ -180,7 +180,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 
 		return undefined;
 
-	} else if (command === `stop`) {
+	} else if (command === `l`) {
 
 		if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel!');
 
@@ -192,7 +192,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 
 		return undefined;
 
-	} else if (command === `volume`) {
+	} else if (command === `v`) {
 
 		if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel!');
 
@@ -212,7 +212,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 
 		return msg.channel.send(`🎶 Now playing: **${serverQueue.songs[0].title}**`);
 
-	} else if (command === `queue`) {
+	} else if (command === `q`) {
 
 		if (!serverQueue) return msg.channel.send('There is nothing playing.');
 
@@ -230,7 +230,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 
 		`);
 
-	} else if (command === `pause`) {
+	} else if (command === `pu`) {
 
 		if (serverQueue && serverQueue.playing) {
 
@@ -244,7 +244,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 
 		return msg.channel.send('There is nothing playing.');
 
-	} else if (command === `resume`) {
+	} else if (command === `r`) {
 
 		if (serverQueue && !serverQueue.playing) {
 
@@ -389,6 +389,49 @@ function play(guild, song) {
 
 }
 
+client.on('message', message => {
+    var prefix = "2";
+    
+      if (!message.content.startsWith(prefix)) return;
+      var args = message.content.split(' ').slice(1);
+      var argresult = args.join(' ');
+      if (message.author.id == 411564557027508235) return;
+    
+    
+    if (message.content.startsWith(prefix + 'playing')) {
+    if (message.author.id !== '411564557027508235') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+    client.user.setGame(argresult);
+        message.channel.sendMessage(`**${argresult}** : تم تغيير الحالة`)
+    } else
+    
+     
+    if (message.content.startsWith(prefix + 'streem')) {
+    if (message.author.id !== '398220765377462283') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+    client.user.setGame(argresult, "http://twitch.tv/HP");
+        message.channel.sendMessage(`**${argresult}** :تم تغيير الحالة الى ستريمنج`)
+    } else
+    
+    if (message.content.startsWith(prefix + 'setname')) {
+    if (message.author.id !== '398220765377462283') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+      client.user.setUsername(argresult).then
+          message.channel.sendMessage(`**${argresult}** : تم تغير الأسم`)
+      return message.reply("**لا تستطيع تغير الأسم الا بعد ساعتين**");
+    } else
+        
+    if (message.content.startsWith(prefix + 'setavatar')) {
+    if (message.author.id !== '398220765377462283') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+    client.user.setAvatar(argresult);
+        message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
+    } else
+    
+    
+    if (message.content.startsWith(prefix + 'watching')) {
+    if (message.author.id !== '234454368072630283') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+        client.user.setActivity(argresult, {type : 'watching'});
+     message.channel.sendMessage(`**${argresult}** : تم تغيير الووتشينق الى`)
+    }
+    
+     });
 
 
 client.login(process.env.BOT_TOKEN);
